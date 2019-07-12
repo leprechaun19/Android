@@ -15,20 +15,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.leprechaun.airport.R;
-import com.leprechaun.airport.data.entities.Airline;
-import com.leprechaun.airport.tasks.Airline.AddChangeAirline;
-import com.leprechaun.airport.tasks.Airline.DeleteAirline;
+import com.leprechaun.airport.data.entities.Airport;
+import com.leprechaun.airport.tasks.Airport.AddChangeAirport;
+import com.leprechaun.airport.tasks.Airport.DeleteAirport;
 
-public class AirlineActivity extends AppCompatActivity {
+public class AirportActivity extends AppCompatActivity {
 
-    Airline airline;
+    Airport airport;
     TextView addOrChangeText;
     CardView cardView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_airline);
+        setContentView(R.layout.activity_airport);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -39,20 +39,23 @@ public class AirlineActivity extends AppCompatActivity {
 
         Bundle b = getIntent().getExtras();
         if (b != null){
-            airline = (Airline) b.getSerializable(Airline.class.getSimpleName());
-            if (airline != null){
-                TextView t = findViewById(R.id.name);
-                t.setText(airline.getAirlineFullName());
+            airport = (Airport) b.getSerializable(Airport.class.getSimpleName());
+            if (airport != null){
+                TextView t = findViewById(R.id.airport_name_textview);
+                TextView loc = findViewById(R.id.airport_location);
+
+                t.setText(airport.getAirportName());
+                loc.setText(String.format("%s, %s", airport.getCountryName(), airport.getCityName()));
             }
         }
         else {
-            TextView airlineText = findViewById(R.id.airlineText);
-            CardView cardView_Name = findViewById(R.id.cardView_name);
+            TextView airlineText = findViewById(R.id.airportText);
+            CardView cardView_Name = findViewById(R.id.cardView_name_airport);
 
             airlineText.setVisibility(View.GONE);
             cardView_Name.setVisibility(View.GONE);
             SetVisibleChange();
-            addOrChangeText.setText("Add New Airline");
+            addOrChangeText.setText("Add New Airport");
         }
     }
 
@@ -69,7 +72,8 @@ public class AirlineActivity extends AppCompatActivity {
         switch (id) {
             case R.id.nav_change:
                 SetVisibleChange();
-                addOrChangeText.setText("New Airline Name");
+                SetDataToEditText(airport);
+                addOrChangeText.setText("New Airport");
                 break;
             case R.id.nav_delete:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -79,13 +83,13 @@ public class AirlineActivity extends AppCompatActivity {
                 builder.setPositiveButton("Yes, delete it", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        new DeleteAirline(airline, AirlineActivity.this.getWindow().getDecorView().getRootView()).execute("0");
+                        new DeleteAirport(airport, AirportActivity.this.getWindow().getDecorView().getRootView()).execute("0");
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(AirlineActivity.this, "Deletion canceled.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AirportActivity.this, "Deletion canceled.", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.show();
@@ -98,26 +102,39 @@ public class AirlineActivity extends AppCompatActivity {
     }
 
     private void SetVisibleChange(){
-        cardView = findViewById(R.id.layout_change);
-        addOrChangeText = findViewById(R.id.new_or_change_name);
+
+        cardView = findViewById(R.id.layout_change_airport);
+        addOrChangeText = findViewById(R.id.new_or_change_name_airport);
 
         addOrChangeText.setVisibility(View.VISIBLE);
         cardView.setVisibility(View.VISIBLE);
     }
 
-    public void AddChangeAirlineClick(View view) {
+    private void SetDataToEditText(Airport airport){
 
-        Airline a = new Airline();
-        EditText editTextName = findViewById(R.id.new_airlina_name);
+        EditText name = findViewById(R.id.new_airport_name);
+        EditText country = findViewById(R.id.new_airport_country);
+        EditText city = findViewById(R.id.new_airport_city);
 
-        if (airline != null){
-            a.setAirlineID(airline.getAirlineID());
-            a.setAirlineFullName(editTextName.getText().toString());
+        name.setText(airport.getAirportName());
+        country.setText(airport.getCountryName());
+        city.setText(airport.getCityName());
+    }
 
+    public void AddChangeAirportClick(View view) {
+
+        Airport a = new Airport();
+        EditText name = findViewById(R.id.new_airport_name);
+        EditText country = findViewById(R.id.new_airport_country);
+        EditText city = findViewById(R.id.new_airport_city);
+
+        if (airport != null){
+            a.setAirportID(airport.getAirportID());
         }
-        else {
-            a.setAirlineFullName(editTextName.getText().toString());
-        }
-        new AddChangeAirline(this.getWindow().getDecorView().getRootView()).execute(a);
+
+        a.setAirportName(name.getText().toString());
+        a.setCountryName(country.getText().toString());
+        a.setCityName(city.getText().toString());
+        new AddChangeAirport(this.getWindow().getDecorView().getRootView()).execute(a);
     }
 }

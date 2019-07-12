@@ -1,7 +1,17 @@
 package com.leprechaun.airport.activities;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
@@ -11,16 +21,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.leprechaun.airport.Enter;
 import com.leprechaun.airport.R;
 import com.leprechaun.airport.contentProvider.DatabaseHandler;
 import com.leprechaun.airport.fragments.AirlineFragment;
+import com.leprechaun.airport.fragments.AirportFragment;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdminnActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public static DatabaseHandler db;
+    CircleImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +56,54 @@ public class AdminnActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        imageView = navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intentPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intentPhoto, 1);
+            }
+        });
+
+        Bundle b = getIntent().getExtras();
+        if (b != null) {
+            TextView textViewName = navigationView.getHeaderView(0).findViewById(R.id.user_name);
+            textViewName.setText(b.getString("login"));
+            Enter.HasImage(imageView, this);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case RESULT_OK:
+
+                break;
+            case RESULT_FIRST_USER:
+                Uri selectedImage = data.getData();
+                String[] filepsth = {MediaStore.Images.Media.DATA};
+
+                String picturePath = "";
+                Cursor c = getContentResolver().query(selectedImage, filepsth, null, null, null);
+                if (c.moveToFirst()) {
+                    int index = c.getColumnIndex(filepsth[0]);
+                    picturePath = c.getString(index);
+                }
+                c.close();
+                if(picturePath != "") {
+                    ImageView i = (ImageView) imageView;
+                    i.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+
+                    SharedPreferences sp = AdminnActivity.this.getSharedPreferences("myPreference", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor e = sp.edit();
+                    e.putString("Url", picturePath);
+                    e.apply();
+                }
+                break;
+        }
     }
 
     @Override
@@ -80,11 +147,21 @@ public class AdminnActivity extends AppCompatActivity
         switch (id) {
             case R.id.nav_airlines:
                 AirlineFragment a = new AirlineFragment();
-                manager.add(R.id.frame, a).commit();
+                manager.replace(R.id.frame, a).commit();
                 break;
             case R.id.nav_airports:
+                AirportFragment port = new AirportFragment();
+                manager.replace(R.id.frame, port).commit();
                 break;
             case R.id.nav_users:
+                break;
+            case R.id.nav_airplanes:
+                break;
+            case R.id.nav_flights:
+                break;
+            case R.id.nav_timetable:
+                break;
+            case R.id.nav_tickets:
                 break;
         }
 

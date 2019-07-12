@@ -1,6 +1,7 @@
 package com.leprechaun.airport.service;
 
 import com.leprechaun.airport.data.entities.Airline;
+import com.leprechaun.airport.data.entities.Airport;
 import com.leprechaun.airport.data.entities.ArrayJSON;
 import com.leprechaun.airport.data.entities.LoginViewModel;
 import com.leprechaun.airport.data.entities.RegisterViewModel;
@@ -29,8 +30,18 @@ public interface IService {
     Call<ArrayJSON<Airline>> getAirlines();
 
     @POST("/api/Airline")
-    Call<ResponseServer> postAirline(@Query("data") Airline airline);
+    Call<ResponseServer> postAirline(@Body Airline airline);
 
     @DELETE("/api/Airline")
     Call<ResponseServer> deleteAirline(@Query("id") String id);
+
+    //Airport
+    @GET("/api/Airport")
+    Call<ArrayJSON<Airport>> getAirports();
+
+    @POST("/api/Airport")
+    Call<ResponseServer> postAirport(@Body Airport airport);
+
+    @DELETE("/api/Airport")
+    Call<ResponseServer> deleteAirport(@Query("id") String id);
 }

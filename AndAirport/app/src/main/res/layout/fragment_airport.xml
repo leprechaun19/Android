@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorLightGrey">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeLayout"
+        android:id="@+id/swipeLayoutAirport"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -16,12 +15,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textviewAir"
+                android:id="@+id/textview_airport"
                 style="@style/CoffeeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/menu_airlines"
+                android:text="@string/menu_airports"
                 android:textSize="20sp" />
 
             <ScrollView
@@ -29,7 +28,7 @@
                 android:layout_height="match_parent">
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/airline_recycler_view"
+                    android:id="@+id/airport_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </ScrollView>
@@ -39,7 +38,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_airline"
+        android:id="@+id/fab_airport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

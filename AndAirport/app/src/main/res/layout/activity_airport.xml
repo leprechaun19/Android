@@ -30,16 +30,16 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/airlineText"
+                android:id="@+id/airportText"
                 style="@style/CoffeeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/airline"
+                android:text="@string/airport"
                 android:textSize="20sp" />
 
             <android.support.v7.widget.CardView
-                android:id="@+id/cardView_name"
+                android:id="@+id/cardView_name_airport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
@@ -50,29 +50,59 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <TextView
-                        style="@style/CoffeeTextView"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/airline_name"
-                        android:textSize="18sp" />
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/name"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            style="@style/CoffeeTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/airline_name"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/airport_name_textview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="18sp" />
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/CoffeeTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/location"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/airport_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="18sp" />
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
             <TextView
-                android:id="@+id/new_or_change_name"
+                android:id="@+id/new_or_change_name_airport"
                 style="@style/CoffeeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,12 +111,11 @@
                 android:visibility="gone" />
 
             <android.support.v7.widget.CardView
-                android:id="@+id/layout_change"
+                android:id="@+id/layout_change_airport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="5dp"
-                android:visibility="gone"
                 android:background="@color/colorCoffee"
                 app:cardCornerRadius="5dp">
 
@@ -97,11 +126,27 @@
                     android:paddingVertical="15dp">
 
                     <EditText
-                        android:id="@+id/new_airlina_name"
+                        android:id="@+id/new_airport_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
-                        android:hint="@string/new_airline_name"
+                        android:hint="@string/new_airport_name"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/new_airport_country"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:hint="@string/new_airport_country_name"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/new_airport_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:hint="@string/new_airport_city_name"
                         android:textSize="18sp" />
 
                     <Button
@@ -109,7 +154,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        android:onClick="AddChangeAirlineClick"
+                        android:onClick="AddChangeAirportClick"
                         android:text="@string/submit" />
 
                 </LinearLayout>

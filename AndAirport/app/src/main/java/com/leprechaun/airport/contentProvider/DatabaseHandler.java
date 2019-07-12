@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.leprechaun.airport.data.entities.Airline;
+import com.leprechaun.airport.data.entities.Airport;
 import com.leprechaun.airport.fragments.AirlineFragment;
 
 import java.util.ArrayList;
@@ -185,10 +186,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return result;
     }
 
+    public ArrayList<Airport> getAirports() {
+
+        ArrayList<Airport> result = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor c = db.query(TABLE_AIRPORTS, null, null, null, null, null, null);
+
+        if (c.moveToFirst()) {
+            do {
+                String id = c.getString(c.getColumnIndex(COLUMN_PORT_IDAIRPORT));
+                String name = c.getString(c.getColumnIndex(COLUMN_PORT_NAME));
+                String countryN = c.getString(c.getColumnIndex(COLUMN_PORT_COUNTRY));
+                String cityN = c.getString(c.getColumnIndex(COLUMN_PORT_CITY));
+
+                result.add(new Airport(id, name, countryN, cityN));
+            }
+            while (c.moveToNext());
+        }
+
+        c.close();
+
+        return result;
+    }
+
     public void deleteAllAirlines() {
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_AIRLINES, null, null);
+
+    }
+
+    public void deleteAllAirports() {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_AIRPORTS, null, null);
 
     }
 
@@ -206,9 +238,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
 
+    private void addAirport(Airport item) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            ContentValues values = new ContentValues();
+            values.put(COLUMN_PORT_IDAIRPORT, item.getAirportID());
+            values.put(COLUMN_PORT_NAME, item.getAirportName());
+            values.put(COLUMN_PORT_COUNTRY, item.getCountryName());
+            values.put(COLUMN_PORT_CITY, item.getCityName());
+
+            db.insert(TABLE_AIRPORTS, null, values);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void addAirlines(ArrayList<Airline> items) {
         for (Airline item : items) {
             addAirline(item);
+        }
+    }
+
+    public void addAirports(ArrayList<Airport> items) {
+        for (Airport item : items) {
+            addAirport(item);
         }
     }
 

@@ -21,19 +21,27 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.AdminnActivity"
-            android:label=""
+            android:label="Airport"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".activities.LoginActivity"
-            android:label="">
+            android:label="Airport">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.UserActivity" />
-        <activity android:name=".activities.AirlineActivity" />
+        <activity android:name=".activities.UserActivity"
+            android:label=""/>
+        <activity android:name=".activities.AirlineActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activities.AirportActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
 
         <provider
             android:name=".contentProvider.DatabaseProvider"

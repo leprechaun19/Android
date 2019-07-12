@@ -1,19 +1,39 @@
 package com.leprechaun.airport.data.entities;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Airplane {
+public class Airplane implements Serializable {
 
-    private UUID airplaneID;
+    @SerializedName("airplaneID")
+    private String airplaneID;
+
+    @SerializedName("airplaneType")
     private String airplaneType;
+
+    @SerializedName("numPlaces")
     private String numPlaces;
-    private UUID airlineID;
+
+    @SerializedName("airlineID")
+    private String airlineID;
+
+    @SerializedName("airline")
     private Airline airline;
 
     public Airplane() {
     }
 
-    public UUID getAirplaneID() {
+    public Airplane(String airplaneID, String airplaneType, String numPlaces, String airlineID, Airline airline) {
+        this.airplaneID = airplaneID;
+        this.airplaneType = airplaneType;
+        this.numPlaces = numPlaces;
+        this.airlineID = airlineID;
+        this.airline = airline;
+    }
+
+    public String getAirplaneID() {
         return airplaneID;
     }
 
@@ -25,7 +45,7 @@ public class Airplane {
         return numPlaces;
     }
 
-    public UUID getAirlineID() {
+    public String getAirlineID() {
         return airlineID;
     }
 
@@ -33,7 +53,7 @@ public class Airplane {
         return airline;
     }
 
-    public void setAirplaneID(UUID airplaneID) {
+    public void setAirplaneID(String airplaneID) {
         this.airplaneID = airplaneID;
     }
 
@@ -45,7 +65,7 @@ public class Airplane {
         this.numPlaces = numPlaces;
     }
 
-    public void setAirlineID(UUID airlineID) {
+    public void setAirlineID(String airlineID) {
         this.airlineID = airlineID;
     }
 

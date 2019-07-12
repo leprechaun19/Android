@@ -18,4 +18,15 @@
     <string name="airline">Airline</string>
     <string name="add_airline">Add Airline</string>
     <string name="airline_name"> Name:</string>
+    <string name="submit">Submit</string>
+    <string name="new_airline_name">New Airline Name</string>
+    <string name="airport">Airport</string>
+    <string name="location">Location:</string>
+    <string name="new_airport_name">New Airport Name</string>
+    <string name="new_airport_country_name">New Airport Country Name</string>
+    <string name="new_airport_city_name">New Airport City Name</string>
+    <string name="airplanes">Airplanes</string>
+    <string name="flights">Flights</string>
+    <string name="timetable">TimeTable</string>
+    <string name="tickets">Tickets</string>
 </resources>
