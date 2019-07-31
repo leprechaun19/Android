@@ -2,11 +2,9 @@ package com.leprechaun.airport.tasks.Airline;
 
 
 import android.os.AsyncTask;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 
-import com.leprechaun.airport.R;
 import com.leprechaun.airport.UIHelper;
 import com.leprechaun.airport.data.entities.Airline;
 import com.leprechaun.airport.data.entities.ResponseServer;
@@ -17,7 +15,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DeleteAirline extends AsyncTask<String, Void, Boolean> {
+public class DeleteAirline extends AsyncTask<String, Void, Void> {
 
     private View view;
     private Airline airline;
@@ -28,20 +26,8 @@ public class DeleteAirline extends AsyncTask<String, Void, Boolean> {
     }
 
     @Override
-    protected void onPostExecute(Boolean result) {
-        if(view != null) {
-            if (result) {
-                UIHelper.showSnackbar(view, "Не удалось удалить запись", 200);
-            } else {
-                UIHelper.showSnackbar(view, "Запись успешно удалена", 200);
-            }
-        }
-    }
+    protected Void doInBackground(String... params) {
 
-    @Override
-    protected Boolean doInBackground(String... params) {
-
-        final boolean[] fail = {true};
         try {
             final IService apiService = Service.getService();
 
@@ -50,20 +36,24 @@ public class DeleteAirline extends AsyncTask<String, Void, Boolean> {
                 @Override
                 public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                     if (response.isSuccessful()) {
-                        fail[0] = false;
                         new GetAirlines(view).execute("0");
+                        if (view != null) {
+                            UIHelper.showSnackbar(view, "Запись успешно удалена", 200);
+                        }
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseServer> call, Throwable t) {
                     Log.e("DeleteAirlineFAILED", t.getMessage());
+                    if (view != null) {
+                        UIHelper.showSnackbar(view, "Не удалось удалить запись", 200);
+                    }
                 }
             });
-            return fail[0];
         } catch (Exception e) {
             Log.e("DeleteAirlineERROR", e.getMessage());
         }
-        return fail[0];
+        return null;
     }
 }

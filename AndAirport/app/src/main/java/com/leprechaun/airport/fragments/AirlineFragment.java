@@ -18,7 +18,9 @@ import com.leprechaun.airport.activities.AirlineActivity;
 import com.leprechaun.airport.adapters.AirlineRecyclerAdapter;
 import com.leprechaun.airport.contentProvider.DatabaseHandler;
 import com.leprechaun.airport.data.entities.Airline;
+import com.leprechaun.airport.tasks.Airline.GetAirlineSoapXml;
 import com.leprechaun.airport.tasks.Airline.GetAirlines;
+import com.leprechaun.airport.tasks.Airline.GetAirlinesWithoutRetrofit;
 
 import java.util.ArrayList;
 
@@ -32,7 +34,6 @@ public class AirlineFragment extends Fragment implements SwipeRefreshLayout.OnRe
         super.onCreate(savedInstanceState);
 
         db = new DatabaseHandler(getActivity().getApplicationContext());
-        new GetAirlines(getView()).execute("0");
     }
 
     @Override
@@ -66,8 +67,10 @@ public class AirlineFragment extends Fragment implements SwipeRefreshLayout.OnRe
     public void onRefresh(){
         SwipeRefreshLayout swipe = getView().findViewById(R.id.swipeLayout);
         swipe.setRefreshing(false);
-        new GetAirlines(getView()).execute("0");
         AirlineRecyclerAdapter adapter = new AirlineRecyclerAdapter(getDataSet());
+        //new GetAirlinesWithoutRetrofit(getView()).execute("0");
+        //new GetAirlineSoapXml(getView()).execute("0");
+        new GetAirlines(getView(), adapter).execute("0");
         recyclerView.setAdapter(adapter);
     }
 

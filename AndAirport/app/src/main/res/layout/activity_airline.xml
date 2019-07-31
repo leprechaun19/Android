@@ -31,7 +31,7 @@
 
             <TextView
                 android:id="@+id/airlineText"
-                style="@style/CoffeeTextView"
+                style="@style/CoffeeTextViewPadding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -53,7 +53,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/CoffeeTextView"
+                        style="@style/CoffeeTextViewPadding"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/airline_name"

@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,16 +20,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.leprechaun.airport.Enter;
 import com.leprechaun.airport.R;
 import com.leprechaun.airport.contentProvider.DatabaseHandler;
 import com.leprechaun.airport.fragments.AirlineFragment;
+import com.leprechaun.airport.fragments.AirplaneFragment;
 import com.leprechaun.airport.fragments.AirportFragment;
+import com.leprechaun.airport.fragments.FlightFragment;
+import com.leprechaun.airport.fragments.TicketFragment;
+import com.leprechaun.airport.fragments.TimeTableFragment;
+import com.leprechaun.airport.fragments.UserFragment;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -154,14 +155,24 @@ public class AdminnActivity extends AppCompatActivity
                 manager.replace(R.id.frame, port).commit();
                 break;
             case R.id.nav_users:
+                UserFragment user = new UserFragment();
+                manager.replace(R.id.frame, user).commit();
                 break;
             case R.id.nav_airplanes:
+                AirplaneFragment plane = new AirplaneFragment();
+                manager.replace(R.id.frame, plane).commit();
                 break;
             case R.id.nav_flights:
+                FlightFragment flight = new FlightFragment();
+                manager.replace(R.id.frame, flight).commit();
                 break;
             case R.id.nav_timetable:
+                TimeTableFragment time = new TimeTableFragment();
+                manager.replace(R.id.frame, time).commit();
                 break;
             case R.id.nav_tickets:
+                TicketFragment ticket = new TicketFragment();
+                manager.replace(R.id.frame, ticket).commit();
                 break;
         }
 

@@ -14,10 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.leprechaun.airport.R;
+import com.leprechaun.airport.activities.AirportActivity;
 import com.leprechaun.airport.adapters.AirportRecyclerAdapter;
 import com.leprechaun.airport.contentProvider.DatabaseHandler;
 import com.leprechaun.airport.data.entities.Airport;
-import com.leprechaun.airport.tasks.Airline.GetAirlines;
+import com.leprechaun.airport.tasks.Airport.GetAirports;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,6 @@ public class AirportFragment extends Fragment implements SwipeRefreshLayout.OnRe
             super.onCreate(savedInstanceState);
 
             db = new DatabaseHandler(getActivity().getApplicationContext());
-            new GetAirlines(getView()).execute("0");
         }
 
         @Override
@@ -54,7 +54,7 @@ public class AirportFragment extends Fragment implements SwipeRefreshLayout.OnRe
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), Airport.class);
+                    Intent intent = new Intent(v.getContext(), AirportActivity.class);
                     v.getContext().startActivity(intent);
                 }
             });
@@ -65,8 +65,8 @@ public class AirportFragment extends Fragment implements SwipeRefreshLayout.OnRe
         public void onRefresh(){
             SwipeRefreshLayout swipe = getView().findViewById(R.id.swipeLayoutAirport);
             swipe.setRefreshing(false);
-            new GetAirlines(getView()).execute("0");
             AirportRecyclerAdapter adapter = new AirportRecyclerAdapter(getDataSet());
+            new GetAirports(getView(), adapter).execute("0");
             recyclerView.setAdapter(adapter);
         }
 

@@ -1,9 +1,10 @@
 package com.leprechaun.airport.data.entities;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 public class Airplane implements Serializable {
 
@@ -31,6 +32,12 @@ public class Airplane implements Serializable {
         this.numPlaces = numPlaces;
         this.airlineID = airlineID;
         this.airline = airline;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return airplaneType;
     }
 
     public String getAirplaneID() {
@@ -72,4 +79,6 @@ public class Airplane implements Serializable {
     public void setAirline(Airline airline) {
         this.airline = airline;
     }
+
+
 }

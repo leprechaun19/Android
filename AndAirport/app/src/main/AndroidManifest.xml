@@ -2,13 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.leprechaun.airport">
 
-    <permission
-        android:name="com.leprechaun.airport.provider.READ_CONTENT_PERMISSION"
-        android:protectionLevel="normal" />
-    <permission
-        android:name="com.leprechaun.airport.provider.WRITE_CONTENT_PERMISSION"
-        android:protectionLevel="normal" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -33,7 +26,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.UserActivity"
-            android:label=""/>
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".activities.AirlineActivity"
             android:label=""
             android:theme="@style/AppTheme.NoActionBar"/>
@@ -42,14 +36,26 @@
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+        <activity android:name=".activities.AirplaneActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
 
-        <provider
-            android:name=".contentProvider.DatabaseProvider"
-            android:authorities="com.leprechaun.airport.provider"
-            android:exported="true"
-            android:grantUriPermissions="true"
-            android:readPermission="com.leprechaun.airport.provider.READ_CONTENT_PERMISSION"
-            android:writePermission="com.leprechaun.airport.provider.WRITE_CONTENT_PERMISSION"></provider>
+        </activity>
+        <activity android:name=".activities.TimeTableActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".activities.FlightActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".activities.TicketActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
     </application>
 
 </manifest>

@@ -9,13 +9,12 @@ import com.leprechaun.airport.data.entities.Airport;
 import com.leprechaun.airport.data.entities.ResponseServer;
 import com.leprechaun.airport.service.IService;
 import com.leprechaun.airport.service.Service;
-import com.leprechaun.airport.tasks.Airline.GetAirlines;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddChangeAirport extends AsyncTask<Airport, Void, Boolean> {
+public class AddChangeAirport extends AsyncTask<Airport, Void, Void> {
 
     private View view;
 
@@ -24,21 +23,8 @@ public class AddChangeAirport extends AsyncTask<Airport, Void, Boolean> {
     }
 
     @Override
-    protected void onPostExecute(Boolean result) {
-        if (view != null) {
-            if (result) {
-                UIHelper.showSnackbar(view, "Не удалось сохранить изменения.", 200);
-            }
-            else {
-                UIHelper.showSnackbar(view, "Изменения сохранены.", 120);
-            }
-        }
-    }
+    protected Void doInBackground(Airport... airports) {
 
-    @Override
-    protected Boolean doInBackground(Airport... airports) {
-
-        final boolean[] fail = {true};
         try {
             final IService apiService = Service.getService();
 
@@ -47,20 +33,23 @@ public class AddChangeAirport extends AsyncTask<Airport, Void, Boolean> {
                 @Override
                 public void onResponse(Call<ResponseServer> call, Response<ResponseServer> response) {
                     if (response.isSuccessful()) {
-                        fail[0] = false;
-                        new GetAirports(view).execute("0");
+                        if (view != null) {
+                            UIHelper.showSnackbar(view, "Изменения сохранены.", 200);
+                        }
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseServer> call, Throwable t) {
                     Log.e("AddAirportsFAILED", t.getMessage());
+                    if (view != null) {
+                        UIHelper.showSnackbar(view, "Не удалось сохранить изменения.", 200);
+                    }
                 }
             });
-            return fail[0];
         } catch (Exception e) {
             Log.e("AddAirportsError", e.getMessage());
         }
-        return fail[0];
+        return null;
     }
 }

@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorLightGrey"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -16,7 +17,7 @@
 
             <TextView
                 android:id="@+id/textview_airport"
-                style="@style/CoffeeTextView"
+                style="@style/CoffeeTextViewPadding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

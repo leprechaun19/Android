@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.leprechaun.airport.UIHelper;
 import com.leprechaun.airport.activities.AdminnActivity;
+import com.leprechaun.airport.adapters.AirportRecyclerAdapter;
 import com.leprechaun.airport.data.entities.Airport;
 import com.leprechaun.airport.data.entities.ArrayJSON;
 import com.leprechaun.airport.service.Service;
@@ -16,33 +17,28 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class GetAirports extends AsyncTask<String, Void, Boolean> {
+public class GetAirports extends AsyncTask<String, Void, Void> {
 
         private View view;
+        private AirportRecyclerAdapter adapter;
 
-        public GetAirports(View view) {
-            this.view = view;
-        }
+    public GetAirports(View view, AirportRecyclerAdapter adapter) {
+        this.view = view;
+        this.adapter = adapter;
+    }
 
-        @Override
-        protected void onPostExecute(Boolean result) {
-            if (result) {
-                if (view != null) {
-                    UIHelper.showSnackbar(view, "Не удалось загрузить данные. Возможно, отсутствует связь.", 60);
-                }
-            }
-        }
+    public GetAirports(View view) {
+        this.view = view;
+    }
 
-        @Override
-        protected Boolean doInBackground(String... params) {
+    @Override
+        protected Void doInBackground(String... params) {
 
-            final boolean[] fail = {true};
             try {
                 Service.getService().getAirports().enqueue(new Callback<ArrayJSON<Airport>>() {
                     @Override
                     public void onResponse(Call<ArrayJSON<Airport>> call, Response<ArrayJSON<Airport>> response) {
                         if (response.body() != null) {
-                            fail[0] = false;
                             ArrayList<Airport> airports = new ArrayList<>();
 
                             try {
@@ -52,19 +48,23 @@ public class GetAirports extends AsyncTask<String, Void, Boolean> {
                             }
                             AdminnActivity.db.deleteAllAirports();
                             AdminnActivity.db.addAirports(airports);
+                            if(adapter != null) {
+                                adapter.notifyDataSetChanged();
+                            }
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ArrayJSON<Airport>> call, Throwable t) {
                         Log.e("GetAirportsFAILED", t.getMessage());
+                        if (view != null) {
+                            UIHelper.showSnackbar(view, "Не удалось загрузить данные. Возможно, отсутствует связь.", 60);
+                        }
                     }
                 });
-                return fail[0];
             } catch (Exception e) {
                 Log.e("GetAirportsError", e.getMessage());
             }
-            return fail[0];
+            return null;
         }
-
     }

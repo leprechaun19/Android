@@ -1,74 +1,99 @@
 package com.leprechaun.airport.data.entities;
 
-import java.util.Date;
-import java.util.UUID;
+import android.support.annotation.NonNull;
 
-public class User {
+import com.google.gson.annotations.SerializedName;
 
-    private UUID userId;
-    private String userName;
-    private String address;
-    private String phone;
-    private String email;
-    private Date createAt;
-    private String applicationUserId;
+import java.io.Serializable;
+
+public class User implements Serializable {
+
+    @SerializedName("userId")
+    private String UserId;
+
+    @SerializedName("userName")
+    private String UserName;
+
+    @SerializedName("address")
+    private String Address;
+
+    @SerializedName("phone")
+    private String Phone;
+
+    @SerializedName("email")
+    private String Email;
+
+    @SerializedName("createAt")
+    private String CreateAt;
 
     public User() {
     }
 
-    public UUID getUserId() {
-        return userId;
+    public User(String userId, String userName) {
+        UserId = userId;
+        UserName = userName;
     }
 
-    public String getUserName() {
-        return userName;
+    public User(String userId, String userName, String address, String phone, String email, String createAt) {
+        UserId = userId;
+        UserName = userName;
+        Address = address;
+        Phone = phone;
+        Email = email;
+        CreateAt = createAt;
     }
 
-    public String getAddress() {
-        return address;
+    @NonNull
+    @Override
+    public String toString() {
+        return UserName;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Date getCreateAt() {
-        return createAt;
-    }
-
-    public String getApplicationUserId() {
-        return applicationUserId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
+    public void setUserId(String userId) {
+        UserId = userId;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        UserName = userName;
     }
 
     public void setAddress(String address) {
-        this.address = address;
+        Address = address;
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        Phone = phone;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        Email = email;
     }
 
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
+    public void setCreateAt(String createAt) {
+        CreateAt = createAt;
     }
 
-    public void setApplicationUserId(String applicationUserId) {
-        this.applicationUserId = applicationUserId;
+    public String getUserId() {
+        return UserId;
+    }
+
+    public String getUserName() {
+        return UserName;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public String getCreateAt() {
+        return CreateAt;
     }
 }

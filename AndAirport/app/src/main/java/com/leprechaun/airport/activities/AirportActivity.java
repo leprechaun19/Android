@@ -112,13 +112,15 @@ public class AirportActivity extends AppCompatActivity {
 
     private void SetDataToEditText(Airport airport){
 
-        EditText name = findViewById(R.id.new_airport_name);
-        EditText country = findViewById(R.id.new_airport_country);
-        EditText city = findViewById(R.id.new_airport_city);
+        if(airport != null) {
+            EditText name = findViewById(R.id.new_airport_name);
+            EditText country = findViewById(R.id.new_airport_country);
+            EditText city = findViewById(R.id.new_airport_city);
 
-        name.setText(airport.getAirportName());
-        country.setText(airport.getCountryName());
-        city.setText(airport.getCityName());
+            name.setText(airport.getAirportName());
+            country.setText(airport.getCountryName());
+            city.setText(airport.getCityName());
+        }
     }
 
     public void AddChangeAirportClick(View view) {

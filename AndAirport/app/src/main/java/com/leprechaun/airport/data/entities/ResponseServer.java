@@ -2,8 +2,6 @@ package com.leprechaun.airport.data.entities;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.UUID;
-
 public class ResponseServer {
 
     @SerializedName("success")

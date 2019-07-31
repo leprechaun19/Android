@@ -1,5 +1,7 @@
 package com.leprechaun.airport.data.entities;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -26,6 +28,12 @@ public class Airport implements Serializable {
         this.AirportName = airportName;
         this.CountryName = countryName;
         this.CityName = cityName;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return AirportName + "(" + CountryName + ", " + CityName + ")";
     }
 
     public void setAirportID(String airportID) {
